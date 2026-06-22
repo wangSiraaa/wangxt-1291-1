@@ -26,6 +26,7 @@ class Student extends Model
     protected $casts = [
         'birthday' => 'date',
         'status' => 'boolean',
+        'gender' => 'integer',
     ];
 
     public function registrations()

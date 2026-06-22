@@ -23,6 +23,10 @@ class StudentController extends Controller
             $query->where('status', $request->status);
         }
 
+        if ($request->filled('gender')) {
+            $query->where('gender', $request->gender);
+        }
+
         $students = $query->orderBy('id', 'desc')->paginate($request->page_size ?? 15);
 
         return response()->json([
@@ -59,7 +63,7 @@ class StudentController extends Controller
             'phone' => 'required|string|max:20|unique:students,phone',
             'id_card' => 'nullable|string|size:18|unique:students,id_card',
             'birthday' => 'nullable|date',
-            'gender' => 'nullable|string|max:10',
+            'gender' => 'nullable|integer|in:1,2',
             'address' => 'nullable|string|max:255',
             'emergency_contact' => 'nullable|string|max:50',
             'emergency_phone' => 'nullable|string|max:20',
@@ -85,7 +89,7 @@ class StudentController extends Controller
             'phone' => 'sometimes|required|string|max:20|unique:students,phone,' . $id,
             'id_card' => 'nullable|string|size:18|unique:students,id_card,' . $id,
             'birthday' => 'nullable|date',
-            'gender' => 'nullable|string|max:10',
+            'gender' => 'nullable|integer|in:1,2',
             'address' => 'nullable|string|max:255',
             'emergency_contact' => 'nullable|string|max:50',
             'emergency_phone' => 'nullable|string|max:20',
